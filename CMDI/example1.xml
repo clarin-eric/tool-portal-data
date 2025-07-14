@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cmd:CMD xmlns:cmd="http://www.clarin.eu/cmd/1"
+ xmlns:cue="http://www.clarin.eu/cmd/cues/1"
+ xmlns:cue_old="http://www.clarin.eu/cmdi/cues/1"
+ xmlns:cmdp="http://www.clarin.eu/cmd/1/profiles/clarin.eu:cr1:p_1747312582452"
+ xmlns:dcr="http://www.isocat.org/ns/dcr"
+ xmlns:vc="http://www.w3.org/2007/XMLSchema-versioning"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="http://www.clarin.eu/cmd/1 file:/Users/twagoo/Documents/Repositories/git/tool-portal-data/CMDI/GenericToolService.xsd" CMDVersion="1.2">
+    <cmd:Header>
+        <cmd:MdProfile>clarin.eu:cr1:p_1747312582452</cmd:MdProfile>
+    </cmd:Header>
+    <cmd:Resources>
+        <cmd:ResourceProxyList>
+        </cmd:ResourceProxyList>
+        <cmd:JournalFileProxyList>
+        </cmd:JournalFileProxyList>
+        <cmd:ResourceRelationList>
+        </cmd:ResourceRelationList>
+    </cmd:Resources>
+    <cmd:Components>
+        <cmdp:GenericToolService>
+            <cmdp:TitleInfo>
+                <cmdp:title>Tool name</cmdp:title>
+            </cmdp:TitleInfo>
+            <cmdp:ToolInfo>
+                <cmdp:ToolServiceType>
+                    <cmdp:label>Test</cmdp:label>
+                </cmdp:ToolServiceType>
+            </cmdp:ToolInfo>
+        </cmdp:GenericToolService>
+    </cmd:Components>
+</cmd:CMD>
