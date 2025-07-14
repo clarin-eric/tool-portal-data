@@ -1,0 +1,1 @@
+# CLARIN tool portal data configurations and conversions
