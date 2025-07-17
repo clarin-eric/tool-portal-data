@@ -1,33 +1,75 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<cmd:CMD xmlns:cmd="http://www.clarin.eu/cmd/1"
-         xmlns:cue="http://www.clarin.eu/cmd/cues/1"
-         xmlns:cue_old="http://www.clarin.eu/cmdi/cues/1"
-         xmlns:cmdp="http://www.clarin.eu/cmd/1/profiles/clarin.eu:cr1:p_1747312582452"
-         xmlns:dcr="http://www.isocat.org/ns/dcr"
-         xmlns:vc="http://www.w3.org/2007/XMLSchema-versioning"
+<cmd:CMD xmlns:xs="http://www.w3.org/2001/XMLSchema"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xmlns:xs="http://www.w3.org/2001/XMLSchema"
+         xmlns:cmd="http://www.clarin.eu/cmd/1"
+         xmlns:cmdp="http://www.clarin.eu/cmd/1/profiles/clarin.eu:cr1:p_1747312582452"
          xmlns="http://www.clarin.eu/cmd/1/profiles/clarin.eu:cr1:p_1747312582452"
-         xsi:schemaLocation="http://www.clarin.eu/cmd/1 https://infra.clarin.eu/CMDI/1.x/xsd/cmd-envelop.xsd             http://www.clarin.eu/cmd/1/profiles/clarin.eu:cr1:p_1747312582452 https://catalog.clarin.eu/ds/ComponentRegistry/rest/registry/1.x/profiles/clarin.eu:cr1:p_1747312582452/xsd"
-         CMDVersion="1.2">
+         CMDVersion="1.2"
+         xsi:schemaLocation="http://www.clarin.eu/cmd/1 https://infra.clarin.eu/CMDI/1.x/xsd/cmd-envelop.xsd             http://www.clarin.eu/cmd/1/profiles/clarin.eu:cr1:p_1747312582452 https://catalog.clarin.eu/ds/ComponentRegistry/rest/registry/1.x/profiles/clarin.eu:cr1:p_1747312582452/xsd">
    <cmd:Header>
       <cmd:MdProfile>clarin.eu:cr1:p_1747312582452</cmd:MdProfile>
    </cmd:Header>
    <cmd:Resources>
-      <cmd:ResourceProxyList/>
+      <cmd:ResourceProxyList>
+         <cmd:ResourceProxy id="webapp">
+            <cmd:ResourceType>LandingPage</cmd:ResourceType>
+            <cmd:ResourceRef>https://clarin.phonetik.uni-muenchen.de/apps/octra/octra/</cmd:ResourceRef>
+         </cmd:ResourceProxy>
+      </cmd:ResourceProxyList>
       <cmd:JournalFileProxyList/>
       <cmd:ResourceRelationList/>
    </cmd:Resources>
    <cmd:Components>
       <GenericToolService>
+         <IdentificationInfo>
+            <identifier>https://switchboard.clarin.eu/api/tools/155</identifier>
+            <internalIdentifier>155</internalIdentifier>
+         </IdentificationInfo>
          <TitleInfo>
             <title>OCTRA</title>
          </TitleInfo>
+         <Description>
+            <description>OCTRA is a web-application for the orthographic transcription of audio files supporting in place ASR and Word Alignment.</description>
+         </Description>
          <ToolInfo>
+            <ToolServiceType>
+               <label>Web application</label>
+            </ToolServiceType>
             <TaskType>
                <label>Speech transcription</label>
             </TaskType>
          </ToolInfo>
+         <MetadataInfo>
+            <ProvenanceInfo>
+               <Creation>
+                  <ActivityInfo>
+                     <method>Conversion to CMDI</method>
+                     <note>Automatically converted from JSON representation
+                                        retrieved from the Switchboard tool registry</note>
+                     <When>
+                        <date>2025-07-17+03:00</date>
+                     </When>
+                  </ActivityInfo>
+               </Creation>
+               <Publication>
+                  <ActivityInfo>
+                     <When>
+                        <label>Unkown</label>
+                     </When>
+                     <Responsible>
+                        <AgentInfo>
+                           <OrganisationInfo>
+                              <name>CLARIN ERIC - Language Resource Switchboard</name>
+                              <ContactInfo>
+                                 <url>https://switchboard.clarin.eu</url>
+                              </ContactInfo>
+                           </OrganisationInfo>
+                        </AgentInfo>
+                     </Responsible>
+                  </ActivityInfo>
+               </Publication>
+            </ProvenanceInfo>
+         </MetadataInfo>
       </GenericToolService>
    </cmd:Components>
 </cmd:CMD>
