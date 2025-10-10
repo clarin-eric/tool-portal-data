@@ -7,6 +7,8 @@
          CMDVersion="1.2"
          xsi:schemaLocation="http://www.clarin.eu/cmd/1 https://infra.clarin.eu/CMDI/1.x/xsd/cmd-envelop.xsd             http://www.clarin.eu/cmd/1/profiles/clarin.eu:cr1:p_1747312582452 https://catalog.clarin.eu/ds/ComponentRegistry/rest/registry/1.x/profiles/clarin.eu:cr1:p_1747312582452/xsd">
    <cmd:Header>
+      <cmd:MdCreator>Switchboard JSON - CMDI stylesheet (automatic)</cmd:MdCreator>
+      <cmd:MdSelfLink>https://tool-portal.clarin.eu/metadata/switchboard/Octra.json</cmd:MdSelfLink>
       <cmd:MdProfile>clarin.eu:cr1:p_1747312582452</cmd:MdProfile>
    </cmd:Header>
    <cmd:Resources>

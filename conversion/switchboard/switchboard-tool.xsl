@@ -16,10 +16,17 @@
     </xsl:template>
 
     <xsl:template match="map">
+        <!-- TODO: more accurate (instead of just unique) selflink -->
+        <xsl:variable name="cmdiSelfLink"
+            select="concat(
+            'https://tool-portal.clarin.eu/metadata/switchboard/', 
+            tokenize($input, '/')[last()])"/>
         <cmd:CMD CMDVersion="1.2"
             xsi:schemaLocation="http://www.clarin.eu/cmd/1 https://infra.clarin.eu/CMDI/1.x/xsd/cmd-envelop.xsd
             http://www.clarin.eu/cmd/1/profiles/clarin.eu:cr1:p_1747312582452 https://catalog.clarin.eu/ds/ComponentRegistry/rest/registry/1.x/profiles/clarin.eu:cr1:p_1747312582452/xsd">
             <cmd:Header>
+                <cmd:MdCreator>Switchboard JSON - CMDI stylesheet (automatic)</cmd:MdCreator>
+                <cmd:MdSelfLink><xsl:value-of select="$cmdiSelfLink"/></cmd:MdSelfLink>
                 <cmd:MdProfile>clarin.eu:cr1:p_1747312582452</cmd:MdProfile>
             </cmd:Header>
             <cmd:Resources>
@@ -94,6 +101,18 @@
                                 </label>
                             </TaskType>
                         </xsl:for-each>
+                        <xsl:if test="./array[@key = 'languages']">
+                            <LanguageSupport>
+                                <InputLanguages>
+                                    <xsl:for-each select="./array[@key = 'languages']/string">
+                                    <Language>
+                                        <name ><xsl:value-of select="."/></name>
+                                        <code ><xsl:value-of select="."/></code>
+                                    </Language>
+                                    </xsl:for-each>
+                                </InputLanguages>
+                            </LanguageSupport>
+                        </xsl:if>
                     </ToolInfo>
 
                     <MetadataInfo>
