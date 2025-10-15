@@ -100,7 +100,7 @@
                     
                     <xsl:for-each select="array[@key = 'author']/map">
                         <!-- TODO: lookup by ID? -->
-                        <xsl:variable name="creatorName" select="concat(concat(./string[@key = 'familyName'], ', '), ./string[@key = 'givenName'])"/>
+                        <xsl:variable name="creatorName" select="concat(concat(./string[@key = 'familyName'][1], ', '), ./string[@key = 'givenName'][1])"/>
                         <Creator>
                             <xsl:for-each select="./string[@key = '@id' and not(starts-with(text(), '_'))]">
                                 <identifier><xsl:value-of select="text()"/></identifier>

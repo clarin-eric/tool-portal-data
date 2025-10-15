@@ -16,4 +16,3 @@ curl -sL "${DATA_URL}" \
 	done
 
 echo "Tool yamls extracted into ${TOOLS_DIR}"
-
