@@ -3,8 +3,19 @@
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:cmd="http://www.clarin.eu/cmd/1"
     xmlns:cmdp="http://www.clarin.eu/cmd/1/profiles/clarin.eu:cr1:p_1747312582452"
+    xmlns:conversion="http://toolportal.clarin.eu/conversion/codemeta"
     xmlns="http://www.clarin.eu/cmd/1/profiles/clarin.eu:cr1:p_1747312582452" version="3.0"
     xpath-default-namespace="http://www.w3.org/2005/xpath-functions">
+
+    <!--
+        TODO:
+            - keywords
+            - organisation (producer)
+            - country (producer.location.addressCountry)
+            - licence
+            - platform (operatingSystem)
+            - version
+    -->
 
     <xsl:mode on-no-match="shallow-copy"/>
     <xsl:param name="input"/>
@@ -16,6 +27,8 @@
     </xsl:template>
 
     <xsl:template match="map">
+        <xsl:variable name="doc" select="."/>
+
         <!-- TODO: more accurate (instead of just unique) selflink -->
         <xsl:variable name="cmdiSelfLink"
             select="
@@ -64,6 +77,16 @@
                             </cmd:ResourceRef>
                         </cmd:ResourceProxy>
                     </xsl:for-each>
+                    <xsl:for-each select="./string[@key = 'codeRepository']">
+                        <cmd:ResourceProxy>
+                            <xsl:attribute name="id">repo_<xsl:value-of select="position()"
+                                /></xsl:attribute>
+                            <cmd:ResourceType>Resource</cmd:ResourceType>
+                            <cmd:ResourceRef>
+                                <xsl:value-of select="text()"/>
+                            </cmd:ResourceRef>
+                        </cmd:ResourceProxy>
+                    </xsl:for-each>
                 </cmd:ResourceProxyList>
                 <cmd:JournalFileProxyList> </cmd:JournalFileProxyList>
                 <cmd:ResourceRelationList> </cmd:ResourceRelationList>
@@ -97,28 +120,21 @@
                             </description>
                         </xsl:for-each>
                     </Description>
-                    
-                    <xsl:for-each select="array[@key = 'author']/map">
-                        <!-- TODO: lookup by ID? -->
-                        <xsl:variable name="creatorName" select="concat(concat(./string[@key = 'familyName'][1], ', '), ./string[@key = 'givenName'][1])"/>
-                        <Creator>
-                            <xsl:for-each select="./string[@key = '@id' and not(starts-with(text(), '_'))]">
-                                <identifier><xsl:value-of select="text()"/></identifier>
-                            </xsl:for-each>
-                            <xsl:for-each select="./string[@key = 'sameAs']">
-                                <identifier><xsl:value-of select="text()"/></identifier>
-                            </xsl:for-each>
-                            
-                            <!-- TODO: sameAs -->
-                            <label><xsl:value-of select="$creatorName"/></label>
-                            <role>author</role>
-                            <AgentInfo>
-                                <PersonInfo>
-                                    <name><xsl:value-of select="$creatorName"/></name>
-                                    <alternativeName><xsl:value-of select="concat(concat(./string[@key = 'givenName'], ' '), ./string[@key = 'familyName'])"/></alternativeName>
-                                </PersonInfo>
-                            </AgentInfo>
-                        </Creator>
+
+                    <xsl:for-each select="map[@key = 'author'] | array[@key = 'author']/map">
+                        <xsl:apply-templates select="." mode="personById">
+                            <xsl:with-param name="type" select="'Creator'"/>
+                            <xsl:with-param name="role">Author</xsl:with-param>
+                            <xsl:with-param name="document" select="$doc"/>
+                        </xsl:apply-templates>
+                    </xsl:for-each>
+
+                    <xsl:for-each select="map[@key = 'maintainer'] | array[@key = 'maintainer']/map">
+                        <xsl:apply-templates select="." mode="personById">
+                            <xsl:with-param name="type" select="'Contributor'"/>
+                            <xsl:with-param name="role">Maintainer</xsl:with-param>
+                            <xsl:with-param name="document" select="$doc"/>
+                        </xsl:apply-templates>
                     </xsl:for-each>
                     <ToolInfo>
                         <xsl:for-each select="array[@key = 'applicationCategory']/string">
@@ -130,7 +146,8 @@
                                 <xsl:choose>
                                     <xsl:when test="matches(text(), 'http.*#.*')">
                                         <label>
-                                            <xsl:value-of select="replace(text(), '.*#(.*)$', '$1')"/>
+                                            <xsl:value-of select="replace(text(), '.*#(.*)$', '$1')"
+                                            />
                                         </label>
                                     </xsl:when>
                                     <xsl:otherwise>
@@ -185,5 +202,122 @@
                 </GenericToolService>
             </cmd:Components>
         </cmd:CMD>
+    </xsl:template>
+
+
+    <xsl:template mode="personById" match="map">
+        <xsl:param name="type"/>
+        <xsl:param name="role"/>
+        <xsl:param name="document"/>
+
+        <!-- Try to find a person with the identifier that has at least a family name specified -->
+        <xsl:variable name="personId" select="normalize-space(./string[@key = '@id'])"/>
+        <xsl:variable name="matchedPerson"
+            select="
+                $document//map[
+                ./string[@key = '@id'] = $personId
+                and normalize-space(./*[@key = 'familyName']) != '']"/>
+
+        <xsl:choose>
+            <xsl:when test="$personId != '' and $matchedPerson != ''">
+                <!-- Create information for the resolved person -->
+                <xsl:apply-templates mode="person" select="$matchedPerson[1]">
+                    <xsl:with-param name="type" select="$type"/>
+                    <xsl:with-param name="role" select="$role"/>
+                </xsl:apply-templates>
+            </xsl:when>
+            <xsl:otherwise>
+                <!-- Failed lookup, use what we have -->
+                <xsl:apply-templates mode="person" select=".">
+                    <xsl:with-param name="type" select="$type"/>
+                    <xsl:with-param name="role" select="$role"/>
+                </xsl:apply-templates>
+            </xsl:otherwise>
+        </xsl:choose>
+
+    </xsl:template>
+
+    <xsl:function name="conversion:stringValueOrFirstFromArray">
+        <xsl:param name="context"/>
+        <xsl:param name="key"/>
+        <xsl:value-of select="$context/string[@key = $key] | $context/array[@key = $key]/string[1]"
+        />
+    </xsl:function>
+
+    <xsl:function name="conversion:combineName">
+        <xsl:param name="familyName"/>
+        <xsl:param name="givenName"/>
+        <xsl:choose>
+            <xsl:when
+                test="normalize-space($familyName) != '' and normalize-space($givenName) != ''">
+                <xsl:value-of select="concat(concat($familyName, ', '), $givenName)"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="$familyName | $givenName"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:function>
+
+    <xsl:template mode="person" match="map">
+        <xsl:param name="type"/>
+        <xsl:param name="role"/>
+
+        <xsl:variable name="familyName"
+            select="normalize-space(conversion:stringValueOrFirstFromArray(., 'familyName'))"/>
+        <xsl:variable name="givenName"
+            select="normalize-space(conversion:stringValueOrFirstFromArray(., 'givenName'))"/>
+        <xsl:variable name="creatorName"
+            select="normalize-space(conversion:combineName($familyName, $givenName))"/>
+
+
+        <xsl:element name="{$type}">
+            <xsl:for-each select="./string[@key = '@id' and not(starts-with(text(), '_'))]">
+                <identifier>
+                    <xsl:value-of select="text()"/>
+                </identifier>
+            </xsl:for-each>
+            <xsl:for-each select="./string[@key = 'sameAs']">
+                <identifier>
+                    <xsl:value-of select="text()"/>
+                </identifier>
+            </xsl:for-each>
+
+            <!-- TODO: sameAs -->
+            <label>
+                <xsl:value-of select="$creatorName"/>
+            </label>
+            <role>
+                <xsl:value-of select="$role"/>
+            </role>
+            <xsl:if test="normalize-space(./string[@key = '@type']) = 'Person'">
+                <AgentInfo>
+                    <PersonInfo>
+                        <name>
+                            <xsl:value-of select="$creatorName"/>
+                        </name>
+                        <xsl:if test="normalize-space(concat($givenName, $familyName)) != ''">
+                            <alternativeName>
+                                <xsl:value-of select="concat(concat($givenName, ' '), $familyName)"
+                                />
+                            </alternativeName>
+                        </xsl:if>
+                        <xsl:if test="./string[@key = 'email'] | ./string[@key = 'url']">
+                            <ContactInfo>
+                                <xsl:for-each select="./string[@key = 'email']">
+                                    <email>
+                                        <xsl:value-of select="."/>
+                                    </email>
+                                </xsl:for-each>
+                                <xsl:for-each select="./string[@key = 'url']">
+                                    <url>
+                                        <xsl:value-of select="."/>
+                                    </url>
+                                </xsl:for-each>
+                            </ContactInfo>
+                        </xsl:if>
+                    </PersonInfo>
+                </AgentInfo>
+            </xsl:if>
+        </xsl:element>
     </xsl:template>
 </xsl:stylesheet>
