@@ -10,7 +10,7 @@
                         <scenarioAssociation-array>
                             <scenarioAssociation>
                                 <field name="url">
-                                    <String>codemeta/dev/tools/tscan_0.10.0.json</String>
+                                    <String>codemeta/codemeta-tool.xsl</String>
                                 </field>
                                 <field name="scenarioIds">
                                     <list>
@@ -30,7 +30,7 @@
                             </scenarioAssociation>
                             <scenarioAssociation>
                                 <field name="url">
-                                    <String>codemeta/codemeta-tool.xsl</String>
+                                    <String>codemeta/dev/tools/alpino-service_2.4.1.json</String>
                                 </field>
                                 <field name="scenarioIds">
                                     <list>
@@ -70,7 +70,7 @@
                             </scenarioAssociation>
                             <scenarioAssociation>
                                 <field name="url">
-                                    <String>codemeta/dev/tools/alpino-service_2.4.1.json</String>
+                                    <String>codemeta/dev/tools/tscan_0.10.0.json</String>
                                 </field>
                                 <field name="scenarioIds">
                                     <list>

@@ -9,12 +9,9 @@
 
     <!--
         TODO:
-            - keywords
-            - organisation (producer, sourceOrganization)
-            - country (producer.location.addressCountry)
-            - licence
             - platform (operatingSystem)
             - version
+            - organisation (publisher?)
     -->
 
     <xsl:mode on-no-match="shallow-copy"/>
@@ -132,54 +129,13 @@
                     <xsl:apply-templates
                         select="map[@key = 'maintainer'] | array[@key = 'maintainer']/map"/>
 
-                    <ToolInfo>
-                        <xsl:for-each select="array[@key = 'applicationCategory']/string">
-                            <ToolServiceType>
-                                <identifier>
-                                    <xsl:value-of select="."/>
-                                </identifier>
-                                <!-- TODO: look up label? -->
-                                <xsl:choose>
-                                    <xsl:when test="matches(text(), 'http.*#.*')">
-                                        <label>
-                                            <xsl:value-of select="replace(text(), '.*#(.*)$', '$1')"
-                                            />
-                                        </label>
-                                    </xsl:when>
-                                    <xsl:otherwise>
-                                        <label>
-                                            <xsl:value-of select="."/>
-                                        </label>
-                                    </xsl:otherwise>
-                                </xsl:choose>
-                            </ToolServiceType>
-                        </xsl:for-each>
-                        <xsl:for-each select="./string[@key = 'task']">
-                            <TaskType>
-                                <label>
-                                    <xsl:value-of select="./text()"/>
-                                </label>
-                            </TaskType>
-                        </xsl:for-each>
-                        <xsl:if test="./array[@key = 'languages']">
-                            <LanguageSupport>
-                                <InputLanguages>
-                                    <xsl:for-each select="./array[@key = 'languages']/string">
-                                        <Language>
-                                            <name>
-                                                <xsl:value-of select="."/>
-                                            </name>
-                                            <code>
-                                                <xsl:value-of select="."/>
-                                            </code>
-                                        </Language>
-                                    </xsl:for-each>
-                                </InputLanguages>
-                            </LanguageSupport>
-                        </xsl:if>
-                    </ToolInfo>
+                    <xsl:apply-templates mode="toolInfo" select="." />
 
+                    <xsl:apply-templates mode="accessInfo" select="." />
+                    
                     <xsl:apply-templates select="map[@key = 'sourceOrganization']"/>
+
+                    <xsl:apply-templates mode="provenanceInfo" select="."/>
 
                     <MetadataInfo>
                         <ProvenanceInfo>
@@ -239,7 +195,7 @@
     <xsl:template mode="agentById" match="map">
         <xsl:param name="type"/>
         <xsl:param name="role"/>
-        <xsl:param name="document"/>
+        <xsl:param name="document" select="map/root()"/>
 
         <!-- Try to find an agent with the identifier that has at least a family name specified -->
         <xsl:variable name="agentId" select="normalize-space(./string[@key = '@id'])"/>
@@ -265,7 +221,6 @@
                 </xsl:apply-templates>
             </xsl:otherwise>
         </xsl:choose>
-
     </xsl:template>
 
     <xsl:function name="conversion:stringValueOrFirstFromArray">
@@ -314,11 +269,11 @@
                 </role>
             </xsl:if>
             <AgentInfo>
-                <xsl:apply-templates mode="organisationInfo" />
+                <xsl:apply-templates mode="organisationInfo" select="." />
             </AgentInfo>
         </xsl:element>
     </xsl:template>
-    
+
     <xsl:template mode="organisationInfo" match="map[string[@key = '@type'] = 'Organization']">
         <OrganisationInfo>
             <xsl:for-each select="string[@key = 'name'] | array[@key = 'name']/string">
@@ -414,6 +369,78 @@
             </xsl:if>
         </xsl:element>
     </xsl:template>
+    
+    <xsl:template mode="toolInfo" match="map">
+        <ToolInfo>
+            <xsl:for-each select="array[@key = 'applicationCategory']/string">
+                <ToolServiceType>
+                    <identifier>
+                        <xsl:value-of select="."/>
+                    </identifier>
+                    <!-- TODO: look up label? -->
+                    <xsl:choose>
+                        <xsl:when test="matches(text(), 'http.*#.*')">
+                            <label>
+                                <xsl:value-of select="replace(text(), '.*#(.*)$', '$1')"
+                                />
+                            </label>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <label>
+                                <xsl:value-of select="."/>
+                            </label>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </ToolServiceType>
+            </xsl:for-each>
+            <xsl:for-each select="./string[@key = 'task']">
+                <TaskType>
+                    <label>
+                        <xsl:value-of select="./text()"/>
+                    </label>
+                </TaskType>
+            </xsl:for-each>
+            <xsl:if test="./array[@key = 'languages']">
+                <LanguageSupport>
+                    <InputLanguages>
+                        <xsl:for-each select="./array[@key = 'languages']/string">
+                            <Language>
+                                <name>
+                                    <xsl:value-of select="."/>
+                                </name>
+                                <code>
+                                    <xsl:value-of select="."/>
+                                </code>
+                            </Language>
+                        </xsl:for-each>
+                    </InputLanguages>
+                </LanguageSupport>
+            </xsl:if>
+        </ToolInfo>
+    </xsl:template>
+    
+    <xsl:template mode="accessInfo" match="map">
+        <AccessInfo>
+            <xsl:apply-templates mode="licence" select="map[@key = 'license']" />
+        </AccessInfo>
+    </xsl:template>
+    
+    <xsl:template mode="licence" match="map[@key = 'license']">
+        <Licence>
+            <xsl:for-each select="string[@key = '@id']">
+                <identifier><xsl:value-of select="."/></identifier>
+            </xsl:for-each>
+            <xsl:for-each select="string[@key = 'name']">
+                <label><xsl:value-of select="."/></label>
+            </xsl:for-each>
+            <xsl:if test="normalize-space(string[@key = 'name']) = ''">
+                <label><xsl:value-of select="string[@key = '@id']"/></label>
+            </xsl:if>
+            <xsl:if test="starts-with(lower-case(normalize-space(string[@key = '@id'])), 'http')">
+                <url><xsl:value-of select="string[@key = '@id']"/></url>
+            </xsl:if>
+        </Licence>
+    </xsl:template>
 
     <xsl:template match="map[@key = 'sourceOrganization']">
         <Source>
@@ -427,11 +454,39 @@
                     <xsl:value-of select="."/>
                 </label>
             </xsl:for-each>
-            <xsl:apply-templates mode="organisationInfo" select="." />
+            <xsl:apply-templates mode="organisationInfo" select="."/>
         </Source>
+    </xsl:template>
+
+    <xsl:template mode="provenanceInfo" match="map">
+        <xsl:variable name="creation">
+            <xsl:apply-templates mode="provenanceInfoActivity" select="map[@key = 'producer']"/>
+        </xsl:variable>
+
+        <xsl:if test="$creation">
+            <ProvenanceInfo>
+                <xsl:copy-of select="$creation"/>
+            </ProvenanceInfo>
+        </xsl:if>
+    </xsl:template>
+
+    <xsl:template mode="provenanceInfoActivity" match="map[@key = 'producer']">
+        <Creation>
+            <ActivityInfo>
+                <note>Production of the software</note>
+                <When/>
+                <xsl:apply-templates mode="agentById" select=".">
+                    <xsl:with-param name="type">Responsible</xsl:with-param>
+                </xsl:apply-templates>
+            </ActivityInfo>
+        </Creation>
     </xsl:template>
 
     <xsl:template match="array">
         <xsl:comment>Nothing for @key=<xsl:value-of select="@key"/></xsl:comment>
+    </xsl:template>
+
+    <xsl:template match="*">
+        <!-- Nothing -->
     </xsl:template>
 </xsl:stylesheet>
