@@ -23,8 +23,6 @@
     </xsl:template>
 
     <xsl:template match="map">
-        <xsl:variable name="doc" select="."/>
-
         <!-- TODO: more accurate (instead of just unique) selflink -->
         <xsl:variable name="cmdiSelfLink"
             select="
@@ -34,6 +32,7 @@
         <cmd:CMD CMDVersion="1.2"
             xsi:schemaLocation="http://www.clarin.eu/cmd/1 https://infra.clarin.eu/CMDI/1.x/xsd/cmd-envelop.xsd
             http://www.clarin.eu/cmd/1/profiles/clarin.eu:cr1:p_1747312582452 https://catalog.clarin.eu/ds/ComponentRegistry/rest/registry/1.x/profiles/clarin.eu:cr1:p_1747312582452/xsd">
+
             <cmd:Header>
                 <cmd:MdCreator>Codemeta JSON - CMDI stylesheet (automatic)</cmd:MdCreator>
                 <cmd:MdSelfLink>
@@ -41,122 +40,131 @@
                 </cmd:MdSelfLink>
                 <cmd:MdProfile>clarin.eu:cr1:p_1747312582452</cmd:MdProfile>
             </cmd:Header>
-            <cmd:Resources>
-                <cmd:ResourceProxyList>
-                    <xsl:for-each select="./string[@key = 'url']">
-                        <cmd:ResourceProxy>
-                            <xsl:attribute name="id">url_<xsl:value-of select="position()"
-                                /></xsl:attribute>
-                            <cmd:ResourceType>LandingPage</cmd:ResourceType>
-                            <cmd:ResourceRef>
-                                <xsl:value-of select="text()"/>
-                            </cmd:ResourceRef>
-                        </cmd:ResourceProxy>
+            
+            <xsl:apply-templates mode="resourceProxies" select="." />
+            <xsl:apply-templates mode="componentPayload" select="." />
+        </cmd:CMD>
+    </xsl:template>
+    
+    <xsl:template mode="resourceProxies" match="map">
+        <cmd:Resources>
+            <cmd:ResourceProxyList>
+                <xsl:for-each select="./string[@key = 'url']">
+                    <cmd:ResourceProxy>
+                        <xsl:attribute name="id">url_<xsl:value-of select="position()"
+                        /></xsl:attribute>
+                        <cmd:ResourceType>LandingPage</cmd:ResourceType>
+                        <cmd:ResourceRef>
+                            <xsl:value-of select="text()"/>
+                        </cmd:ResourceRef>
+                    </cmd:ResourceProxy>
+                </xsl:for-each>
+                <xsl:for-each select="./string[@key = 'sameAs']">
+                    <cmd:ResourceProxy>
+                        <xsl:attribute name="id">sameAs_<xsl:value-of select="position()"
+                        /></xsl:attribute>
+                        <cmd:ResourceType>Resource</cmd:ResourceType>
+                        <cmd:ResourceRef>
+                            <xsl:value-of select="text()"/>
+                        </cmd:ResourceRef>
+                    </cmd:ResourceProxy>
+                </xsl:for-each>
+                <xsl:for-each select="./string[@key = 'downloadUrl']">
+                    <cmd:ResourceProxy>
+                        <xsl:attribute name="id">download_<xsl:value-of select="position()"
+                        /></xsl:attribute>
+                        <cmd:ResourceType>Resource</cmd:ResourceType>
+                        <cmd:ResourceRef>
+                            <xsl:value-of select="text()"/>
+                        </cmd:ResourceRef>
+                    </cmd:ResourceProxy>
+                </xsl:for-each>
+                <xsl:for-each select="./string[@key = 'codeRepository']">
+                    <cmd:ResourceProxy>
+                        <xsl:attribute name="id">repo_<xsl:value-of select="position()"
+                        /></xsl:attribute>
+                        <cmd:ResourceType>Resource</cmd:ResourceType>
+                        <cmd:ResourceRef>
+                            <xsl:value-of select="text()"/>
+                        </cmd:ResourceRef>
+                    </cmd:ResourceProxy>
+                </xsl:for-each>
+            </cmd:ResourceProxyList>
+            <cmd:JournalFileProxyList /> 
+            <cmd:ResourceRelationList /> 
+        </cmd:Resources>
+    </xsl:template>
+    
+    <xsl:template mode="componentPayload" match="map">
+        <cmd:Components>
+            <GenericToolService>
+                <IdentificationInfo>
+                    <xsl:for-each select="./string[@key = '@id']">
+                        <identifier>
+                            <xsl:value-of select="text()"/>
+                        </identifier>
                     </xsl:for-each>
                     <xsl:for-each select="./string[@key = 'sameAs']">
-                        <cmd:ResourceProxy>
-                            <xsl:attribute name="id">sameAs_<xsl:value-of select="position()"
-                                /></xsl:attribute>
-                            <cmd:ResourceType>Resource</cmd:ResourceType>
-                            <cmd:ResourceRef>
-                                <xsl:value-of select="text()"/>
-                            </cmd:ResourceRef>
-                        </cmd:ResourceProxy>
+                        <alternativeIdentifier>
+                            <xsl:value-of select="text()"/>
+                        </alternativeIdentifier>
                     </xsl:for-each>
-                    <xsl:for-each select="./string[@key = 'downloadUrl']">
-                        <cmd:ResourceProxy>
-                            <xsl:attribute name="id">download_<xsl:value-of select="position()"
-                                /></xsl:attribute>
-                            <cmd:ResourceType>Resource</cmd:ResourceType>
-                            <cmd:ResourceRef>
-                                <xsl:value-of select="text()"/>
-                            </cmd:ResourceRef>
-                        </cmd:ResourceProxy>
+                </IdentificationInfo>
+                
+                <TitleInfo>
+                    <xsl:for-each select="./string[@key = 'name']">
+                        <title>
+                            <xsl:value-of select="text()"/>
+                        </title>
                     </xsl:for-each>
-                    <xsl:for-each select="./string[@key = 'codeRepository']">
-                        <cmd:ResourceProxy>
-                            <xsl:attribute name="id">repo_<xsl:value-of select="position()"
-                                /></xsl:attribute>
-                            <cmd:ResourceType>Resource</cmd:ResourceType>
-                            <cmd:ResourceRef>
-                                <xsl:value-of select="text()"/>
-                            </cmd:ResourceRef>
-                        </cmd:ResourceProxy>
+                </TitleInfo>
+                <Description>
+                    <xsl:for-each select="./string[@key = 'description']">
+                        <description>
+                            <xsl:value-of select="text()"/>
+                        </description>
                     </xsl:for-each>
-                </cmd:ResourceProxyList>
-                <cmd:JournalFileProxyList> </cmd:JournalFileProxyList>
-                <cmd:ResourceRelationList> </cmd:ResourceRelationList>
-            </cmd:Resources>
-            <cmd:Components>
-                <GenericToolService>
-                    <IdentificationInfo>
-                        <xsl:for-each select="./string[@key = '@id']">
-                            <identifier>
-                                <xsl:value-of select="text()"/>
-                            </identifier>
-                        </xsl:for-each>
-                        <xsl:for-each select="./string[@key = 'sameAs']">
-                            <alternativeIdentifier>
-                                <xsl:value-of select="text()"/>
-                            </alternativeIdentifier>
-                        </xsl:for-each>
-                    </IdentificationInfo>
-
-                    <TitleInfo>
-                        <xsl:for-each select="./string[@key = 'name']">
-                            <title>
-                                <xsl:value-of select="text()"/>
-                            </title>
-                        </xsl:for-each>
-                    </TitleInfo>
-                    <Description>
-                        <xsl:for-each select="./string[@key = 'description']">
-                            <description>
-                                <xsl:value-of select="text()"/>
-                            </description>
-                        </xsl:for-each>
-                    </Description>
-
-                    <xsl:apply-templates select="array[@key = 'keywords']"/>
-
-                    <!-- Authors -->
-                    <xsl:apply-templates select="map[@key = 'author'] | array[@key = 'author']/map"/>
-                    <!-- Contributors -->
-                    <xsl:apply-templates
-                        select="map[@key = 'contributor'] | array[@key = 'contributor']/map"/>
-                    <!-- Maintainers -->
-                    <xsl:apply-templates
-                        select="map[@key = 'maintainer'] | array[@key = 'maintainer']/map"/>
-
-                    <xsl:apply-templates mode="toolInfo" select="." />
-
-                    <xsl:apply-templates mode="accessInfo" select="." />
-                    
-                    <xsl:apply-templates select="map[@key = 'sourceOrganization']"/>
-
-                    <xsl:apply-templates mode="provenanceInfo" select="."/>
-                    
-                    <xsl:apply-templates select="string[@key = 'version']" />
-
-                    <MetadataInfo>
-                        <ProvenanceInfo>
-                            <Creation>
-                                <ActivityInfo>
-                                    <method>Conversion to CMDI</method>
-                                    <note>Automatically converted from the Codemeta record for this
-                                        item</note>
-                                    <When>
-                                        <date>
-                                            <xsl:value-of select="current-date()"/>
-                                        </date>
-                                    </When>
-                                </ActivityInfo>
-                            </Creation>
-                        </ProvenanceInfo>
-                    </MetadataInfo>
-                </GenericToolService>
-            </cmd:Components>
-        </cmd:CMD>
+                </Description>
+                
+                <xsl:apply-templates select="array[@key = 'keywords']"/>
+                
+                <!-- Authors -->
+                <xsl:apply-templates select="map[@key = 'author'] | array[@key = 'author']/map"/>
+                <!-- Contributors -->
+                <xsl:apply-templates
+                    select="map[@key = 'contributor'] | array[@key = 'contributor']/map"/>
+                <!-- Maintainers -->
+                <xsl:apply-templates
+                    select="map[@key = 'maintainer'] | array[@key = 'maintainer']/map"/>
+                
+                <xsl:apply-templates mode="toolInfo" select="." />
+                
+                <xsl:apply-templates mode="accessInfo" select="." />
+                
+                <xsl:apply-templates select="map[@key = 'sourceOrganization']"/>
+                
+                <xsl:apply-templates mode="provenanceInfo" select="."/>
+                
+                <xsl:apply-templates select="string[@key = 'version']" />
+                
+                <MetadataInfo>
+                    <ProvenanceInfo>
+                        <Creation>
+                            <ActivityInfo>
+                                <method>Conversion to CMDI</method>
+                                <note>Automatically converted from the Codemeta record for this
+                                    item</note>
+                                <When>
+                                    <date>
+                                        <xsl:value-of select="current-date()"/>
+                                    </date>
+                                </When>
+                            </ActivityInfo>
+                        </Creation>
+                    </ProvenanceInfo>
+                </MetadataInfo>
+            </GenericToolService>
+        </cmd:Components>
     </xsl:template>
 
     <xsl:template match="array[@key = 'keywords']">
