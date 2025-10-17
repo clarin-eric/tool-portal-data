@@ -10,7 +10,7 @@
     <!--
         TODO:
             - keywords
-            - organisation (producer)
+            - organisation (producer, sourceOrganization)
             - country (producer.location.addressCountry)
             - licence
             - platform (operatingSystem)
@@ -121,21 +121,17 @@
                         </xsl:for-each>
                     </Description>
 
-                    <xsl:for-each select="map[@key = 'author'] | array[@key = 'author']/map">
-                        <xsl:apply-templates select="." mode="personById">
-                            <xsl:with-param name="type" select="'Creator'"/>
-                            <xsl:with-param name="role">Author</xsl:with-param>
-                            <xsl:with-param name="document" select="$doc"/>
-                        </xsl:apply-templates>
-                    </xsl:for-each>
+                    <xsl:apply-templates select="array[@key = 'keywords']"/>
 
-                    <xsl:for-each select="map[@key = 'maintainer'] | array[@key = 'maintainer']/map">
-                        <xsl:apply-templates select="." mode="personById">
-                            <xsl:with-param name="type" select="'Contributor'"/>
-                            <xsl:with-param name="role">Maintainer</xsl:with-param>
-                            <xsl:with-param name="document" select="$doc"/>
-                        </xsl:apply-templates>
-                    </xsl:for-each>
+                    <!-- Authors -->
+                    <xsl:apply-templates select="map[@key = 'author'] | array[@key = 'author']/map"/>
+                    <!-- Contributors -->
+                    <xsl:apply-templates
+                        select="map[@key = 'contributor'] | array[@key = 'contributor']/map"/>
+                    <!-- Maintainers -->
+                    <xsl:apply-templates
+                        select="map[@key = 'maintainer'] | array[@key = 'maintainer']/map"/>
+
                     <ToolInfo>
                         <xsl:for-each select="array[@key = 'applicationCategory']/string">
                             <ToolServiceType>
@@ -183,6 +179,8 @@
                         </xsl:if>
                     </ToolInfo>
 
+                    <xsl:apply-templates select="map[@key = 'sourceOrganization']"/>
+
                     <MetadataInfo>
                         <ProvenanceInfo>
                             <Creation>
@@ -204,31 +202,64 @@
         </cmd:CMD>
     </xsl:template>
 
+    <xsl:template match="array[@key = 'keywords']">
+        <DescriptivePropertiesInfo>
+            <xsl:for-each select="./string">
+                <keyword>
+                    <xsl:value-of select="."/>
+                </keyword>
+            </xsl:for-each>
+        </DescriptivePropertiesInfo>
+    </xsl:template>
 
-    <xsl:template mode="personById" match="map">
+    <xsl:template match="map[@key = 'author'] | array[@key = 'author']/map">
+        <xsl:apply-templates select="." mode="agentById">
+            <xsl:with-param name="type" select="'Creator'"/>
+            <xsl:with-param name="role">Author</xsl:with-param>
+            <xsl:with-param name="document" select="root()"/>
+        </xsl:apply-templates>
+    </xsl:template>
+
+    <xsl:template match="map[@key = 'contributor'] | array[@key = 'contributor']/map">
+        <xsl:apply-templates select="." mode="agentById">
+            <xsl:with-param name="type">Contributor</xsl:with-param>
+            <xsl:with-param name="role">Contributor</xsl:with-param>
+            <xsl:with-param name="document" select="root()"/>
+        </xsl:apply-templates>
+    </xsl:template>
+
+    <xsl:template match="map[@key = 'maintainer'] | array[@key = 'maintainer']/map">
+        <xsl:apply-templates select="." mode="agentById">
+            <xsl:with-param name="type">Contributor</xsl:with-param>
+            <xsl:with-param name="role">Maintainer</xsl:with-param>
+            <xsl:with-param name="document" select="root()"/>
+        </xsl:apply-templates>
+    </xsl:template>
+
+    <xsl:template mode="agentById" match="map">
         <xsl:param name="type"/>
         <xsl:param name="role"/>
         <xsl:param name="document"/>
 
-        <!-- Try to find a person with the identifier that has at least a family name specified -->
-        <xsl:variable name="personId" select="normalize-space(./string[@key = '@id'])"/>
-        <xsl:variable name="matchedPerson"
+        <!-- Try to find an agent with the identifier that has at least a family name specified -->
+        <xsl:variable name="agentId" select="normalize-space(./string[@key = '@id'])"/>
+        <xsl:variable name="matchedAgent"
             select="
                 $document//map[
-                ./string[@key = '@id'] = $personId
+                ./string[@key = '@id'] = $agentId
                 and normalize-space(./*[@key = 'familyName']) != '']"/>
 
         <xsl:choose>
-            <xsl:when test="$personId != '' and $matchedPerson != ''">
+            <xsl:when test="$agentId != '' and $matchedAgent != ''">
                 <!-- Create information for the resolved person -->
-                <xsl:apply-templates mode="person" select="$matchedPerson[1]">
+                <xsl:apply-templates mode="agent" select="$matchedAgent[1]">
                     <xsl:with-param name="type" select="$type"/>
                     <xsl:with-param name="role" select="$role"/>
                 </xsl:apply-templates>
             </xsl:when>
             <xsl:otherwise>
                 <!-- Failed lookup, use what we have -->
-                <xsl:apply-templates mode="person" select=".">
+                <xsl:apply-templates mode="agent" select=".">
                     <xsl:with-param name="type" select="$type"/>
                     <xsl:with-param name="role" select="$role"/>
                 </xsl:apply-templates>
@@ -258,7 +289,71 @@
         </xsl:choose>
     </xsl:function>
 
-    <xsl:template mode="person" match="map">
+    <xsl:template mode="agent" match="map[string[@key = '@type'] = 'Organization']">
+        <xsl:param name="type"/>
+        <xsl:param name="role" required="false"/>
+        <xsl:element name="{$type}">
+            <xsl:for-each select="./string[@key = '@id' and not(starts-with(text(), '_'))]">
+                <identifier>
+                    <xsl:value-of select="text()"/>
+                </identifier>
+            </xsl:for-each>
+            <xsl:for-each select="./string[@key = 'sameAs']">
+                <identifier>
+                    <xsl:value-of select="text()"/>
+                </identifier>
+            </xsl:for-each>
+            <xsl:for-each select="string[@key = 'name'] | array[@key = 'name']/string">
+                <label>
+                    <xsl:value-of select="."/>
+                </label>
+            </xsl:for-each>
+            <xsl:if test="normalize-space($role) != ''">
+                <role>
+                    <xsl:value-of select="$role"/>
+                </role>
+            </xsl:if>
+            <AgentInfo>
+                <xsl:apply-templates mode="organisationInfo" />
+            </AgentInfo>
+        </xsl:element>
+    </xsl:template>
+    
+    <xsl:template mode="organisationInfo" match="map[string[@key = '@type'] = 'Organization']">
+        <OrganisationInfo>
+            <xsl:for-each select="string[@key = 'name'] | array[@key = 'name']/string">
+                <name>
+                    <xsl:value-of select="."/>
+                </name>
+            </xsl:for-each>
+            <xsl:if test="string[@key = 'url']">
+                <ContactInfo>
+                    <url>
+                        <xsl:value-of select="string[@key = 'url']"/>
+                    </url>
+                </ContactInfo>
+            </xsl:if>
+            <xsl:for-each select="map[@key = 'parentOrganization']">
+                <ParentOrganisation>
+                    <xsl:for-each select="string[@key = 'name'] | array[@key = 'name']/string">
+                        <label>
+                            <xsl:value-of select="."/>
+                        </label>
+                    </xsl:for-each>
+                    <xsl:if test="string[@key = 'url']">
+                        <ContactInfo>
+                            <url>
+                                <xsl:value-of select="string[@key = 'url']"/>
+                            </url>
+                        </ContactInfo>
+                    </xsl:if>
+                </ParentOrganisation>
+            </xsl:for-each>
+        </OrganisationInfo>
+    </xsl:template>
+
+
+    <xsl:template mode="agent" match="map[string[@key = '@type'] = 'Person']">
         <xsl:param name="type"/>
         <xsl:param name="role"/>
 
@@ -268,7 +363,6 @@
             select="normalize-space(conversion:stringValueOrFirstFromArray(., 'givenName'))"/>
         <xsl:variable name="creatorName"
             select="normalize-space(conversion:combineName($familyName, $givenName))"/>
-
 
         <xsl:element name="{$type}">
             <xsl:for-each select="./string[@key = '@id' and not(starts-with(text(), '_'))]">
@@ -319,5 +413,25 @@
                 </AgentInfo>
             </xsl:if>
         </xsl:element>
+    </xsl:template>
+
+    <xsl:template match="map[@key = 'sourceOrganization']">
+        <Source>
+            <xsl:for-each select="string[@key = 'name']">
+                <label>
+                    <xsl:value-of select="."/>
+                </label>
+            </xsl:for-each>
+            <xsl:for-each select="array[@key = 'name']/string">
+                <label>
+                    <xsl:value-of select="."/>
+                </label>
+            </xsl:for-each>
+            <xsl:apply-templates mode="organisationInfo" select="." />
+        </Source>
+    </xsl:template>
+
+    <xsl:template match="array">
+        <xsl:comment>Nothing for @key=<xsl:value-of select="@key"/></xsl:comment>
     </xsl:template>
 </xsl:stylesheet>
