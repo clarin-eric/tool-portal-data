@@ -10,6 +10,106 @@
                         <scenarioAssociation-array>
                             <scenarioAssociation>
                                 <field name="url">
+                                    <String>codemeta/dev/tools/tscan_0.10.0.json.xml</String>
+                                </field>
+                                <field name="scenarioIds">
+                                    <list>
+                                        <String>Codemeta JSON-LD to CMDI</String>
+                                    </list>
+                                </field>
+                                <field name="scenarioTypes">
+                                    <list>
+                                        <String>XSL</String>
+                                    </list>
+                                </field>
+                                <field name="scenarioStorageLocations">
+                                    <list>
+                                        <Byte>2</Byte>
+                                    </list>
+                                </field>
+                            </scenarioAssociation>
+                            <scenarioAssociation>
+                                <field name="url">
+                                    <String>codemeta/dev/tools/textfabric_13.0.16.json</String>
+                                </field>
+                                <field name="scenarioIds">
+                                    <list>
+                                        <String>Codemeta JSON-LD to CMDI</String>
+                                    </list>
+                                </field>
+                                <field name="scenarioTypes">
+                                    <list>
+                                        <String>XSL</String>
+                                    </list>
+                                </field>
+                                <field name="scenarioStorageLocations">
+                                    <list>
+                                        <Byte>2</Byte>
+                                    </list>
+                                </field>
+                            </scenarioAssociation>
+                            <scenarioAssociation>
+                                <field name="url">
+                                    <String>codemeta/dev/tools/textannoviz_0.17.5.json</String>
+                                </field>
+                                <field name="scenarioIds">
+                                    <list>
+                                        <String>Codemeta JSON-LD to CMDI</String>
+                                    </list>
+                                </field>
+                                <field name="scenarioTypes">
+                                    <list>
+                                        <String>XSL</String>
+                                    </list>
+                                </field>
+                                <field name="scenarioStorageLocations">
+                                    <list>
+                                        <Byte>2</Byte>
+                                    </list>
+                                </field>
+                            </scenarioAssociation>
+                            <scenarioAssociation>
+                                <field name="url">
+                                    <String>codemeta/dev/tools/lenticularlens_1.22.json</String>
+                                </field>
+                                <field name="scenarioIds">
+                                    <list>
+                                        <String>Codemeta JSON-LD to CMDI</String>
+                                    </list>
+                                </field>
+                                <field name="scenarioTypes">
+                                    <list>
+                                        <String>XSL</String>
+                                    </list>
+                                </field>
+                                <field name="scenarioStorageLocations">
+                                    <list>
+                                        <Byte>2</Byte>
+                                    </list>
+                                </field>
+                            </scenarioAssociation>
+                            <scenarioAssociation>
+                                <field name="url">
+                                    <String>codemeta/dev/tools/clam_3.2.13.json</String>
+                                </field>
+                                <field name="scenarioIds">
+                                    <list>
+                                        <String>Codemeta JSON-LD to CMDI</String>
+                                    </list>
+                                </field>
+                                <field name="scenarioTypes">
+                                    <list>
+                                        <String>XSL</String>
+                                    </list>
+                                </field>
+                                <field name="scenarioStorageLocations">
+                                    <list>
+                                        <Byte>2</Byte>
+                                    </list>
+                                </field>
+                            </scenarioAssociation>
+                            <scenarioAssociation>
+                                <field name="url">
                                     <String>codemeta/codemeta-tool.xsl</String>
                                 </field>
                                 <field name="scenarioIds">
@@ -30,7 +130,327 @@
                             </scenarioAssociation>
                             <scenarioAssociation>
                                 <field name="url">
+                                    <String>codemeta/dev/tools/choicellm_snapshot.json</String>
+                                </field>
+                                <field name="scenarioIds">
+                                    <list>
+                                        <String>Codemeta JSON-LD to CMDI</String>
+                                    </list>
+                                </field>
+                                <field name="scenarioTypes">
+                                    <list>
+                                        <String>XSL</String>
+                                    </list>
+                                </field>
+                                <field name="scenarioStorageLocations">
+                                    <list>
+                                        <Byte>2</Byte>
+                                    </list>
+                                </field>
+                            </scenarioAssociation>
+                            <scenarioAssociation>
+                                <field name="url">
+                                    <String>codemeta/dev/tools/chamd_0.5.12.json</String>
+                                </field>
+                                <field name="scenarioIds">
+                                    <list>
+                                        <String>Codemeta JSON-LD to CMDI</String>
+                                    </list>
+                                </field>
+                                <field name="scenarioTypes">
+                                    <list>
+                                        <String>XSL</String>
+                                    </list>
+                                </field>
+                                <field name="scenarioStorageLocations">
+                                    <list>
+                                        <Byte>2</Byte>
+                                    </list>
+                                </field>
+                            </scenarioAssociation>
+                            <scenarioAssociation>
+                                <field name="url">
+                                    <String>codemeta/dev/tools/cesar_unknown.json</String>
+                                </field>
+                                <field name="scenarioIds">
+                                    <list>
+                                        <String>Codemeta JSON-LD to CMDI</String>
+                                    </list>
+                                </field>
+                                <field name="scenarioTypes">
+                                    <list>
+                                        <String>XSL</String>
+                                    </list>
+                                </field>
+                                <field name="scenarioStorageLocations">
+                                    <list>
+                                        <Byte>2</Byte>
+                                    </list>
+                                </field>
+                            </scenarioAssociation>
+                            <scenarioAssociation>
+                                <field name="url">
+                                    <String>codemeta/dev/tools/burgerlinker_0.0.1-SNAPSHOT.json</String>
+                                </field>
+                                <field name="scenarioIds">
+                                    <list>
+                                        <String>Codemeta JSON-LD to CMDI</String>
+                                    </list>
+                                </field>
+                                <field name="scenarioTypes">
+                                    <list>
+                                        <String>XSL</String>
+                                    </list>
+                                </field>
+                                <field name="scenarioStorageLocations">
+                                    <list>
+                                        <Byte>2</Byte>
+                                    </list>
+                                </field>
+                            </scenarioAssociation>
+                            <scenarioAssociation>
+                                <field name="url">
+                                    <String>codemeta/dev/tools/broccoli_0.48.0.json</String>
+                                </field>
+                                <field name="scenarioIds">
+                                    <list>
+                                        <String>Codemeta JSON-LD to CMDI</String>
+                                    </list>
+                                </field>
+                                <field name="scenarioTypes">
+                                    <list>
+                                        <String>XSL</String>
+                                    </list>
+                                </field>
+                                <field name="scenarioStorageLocations">
+                                    <list>
+                                        <Byte>2</Byte>
+                                    </list>
+                                </field>
+                            </scenarioAssociation>
+                            <scenarioAssociation>
+                                <field name="url">
+                                    <String>codemeta/dev/tools/blacklab_4.0.0.json</String>
+                                </field>
+                                <field name="scenarioIds">
+                                    <list>
+                                        <String>Codemeta JSON-LD to CMDI</String>
+                                    </list>
+                                </field>
+                                <field name="scenarioTypes">
+                                    <list>
+                                        <String>XSL</String>
+                                    </list>
+                                </field>
+                                <field name="scenarioStorageLocations">
+                                    <list>
+                                        <Byte>2</Byte>
+                                    </list>
+                                </field>
+                            </scenarioAssociation>
+                            <scenarioAssociation>
+                                <field name="url">
+                                    <String>codemeta/dev/tools/auchann_0.2.0.json</String>
+                                </field>
+                                <field name="scenarioIds">
+                                    <list>
+                                        <String>Codemeta JSON-LD to CMDI</String>
+                                    </list>
+                                </field>
+                                <field name="scenarioTypes">
+                                    <list>
+                                        <String>XSL</String>
+                                    </list>
+                                </field>
+                                <field name="scenarioStorageLocations">
+                                    <list>
+                                        <Byte>2</Byte>
+                                    </list>
+                                </field>
+                            </scenarioAssociation>
+                            <scenarioAssociation>
+                                <field name="url">
+                                    <String>codemeta/dev/tools/asrservice_0.3.json</String>
+                                </field>
+                                <field name="scenarioIds">
+                                    <list>
+                                        <String>Codemeta JSON-LD to CMDI</String>
+                                    </list>
+                                </field>
+                                <field name="scenarioTypes">
+                                    <list>
+                                        <String>XSL</String>
+                                    </list>
+                                </field>
+                                <field name="scenarioStorageLocations">
+                                    <list>
+                                        <Byte>2</Byte>
+                                    </list>
+                                </field>
+                            </scenarioAssociation>
+                            <scenarioAssociation>
+                                <field name="url">
+                                    <String>codemeta/dev/tools/asr_nl_0.6.2.json</String>
+                                </field>
+                                <field name="scenarioIds">
+                                    <list>
+                                        <String>Codemeta JSON-LD to CMDI</String>
+                                    </list>
+                                </field>
+                                <field name="scenarioTypes">
+                                    <list>
+                                        <String>XSL</String>
+                                    </list>
+                                </field>
+                                <field name="scenarioStorageLocations">
+                                    <list>
+                                        <Byte>2</Byte>
+                                    </list>
+                                </field>
+                            </scenarioAssociation>
+                            <scenarioAssociation>
+                                <field name="url">
+                                    <String>codemeta/dev/tools/annorepo_0.8.0.json</String>
+                                </field>
+                                <field name="scenarioIds">
+                                    <list>
+                                        <String>Codemeta JSON-LD to CMDI</String>
+                                    </list>
+                                </field>
+                                <field name="scenarioTypes">
+                                    <list>
+                                        <String>XSL</String>
+                                    </list>
+                                </field>
+                                <field name="scenarioStorageLocations">
+                                    <list>
+                                        <Byte>2</Byte>
+                                    </list>
+                                </field>
+                            </scenarioAssociation>
+                            <scenarioAssociation>
+                                <field name="url">
+                                    <String>codemeta/dev/tools/annorepo-client_0.2.3.json</String>
+                                </field>
+                                <field name="scenarioIds">
+                                    <list>
+                                        <String>Codemeta JSON-LD to CMDI</String>
+                                    </list>
+                                </field>
+                                <field name="scenarioTypes">
+                                    <list>
+                                        <String>XSL</String>
+                                    </list>
+                                </field>
+                                <field name="scenarioStorageLocations">
+                                    <list>
+                                        <Byte>2</Byte>
+                                    </list>
+                                </field>
+                            </scenarioAssociation>
+                            <scenarioAssociation>
+                                <field name="url">
+                                    <String>codemeta/dev/tools/analiticcl_0.4.8.json</String>
+                                </field>
+                                <field name="scenarioIds">
+                                    <list>
+                                        <String>Codemeta JSON-LD to CMDI</String>
+                                    </list>
+                                </field>
+                                <field name="scenarioTypes">
+                                    <list>
+                                        <String>XSL</String>
+                                    </list>
+                                </field>
+                                <field name="scenarioStorageLocations">
+                                    <list>
+                                        <Byte>2</Byte>
+                                    </list>
+                                </field>
+                            </scenarioAssociation>
+                            <scenarioAssociation>
+                                <field name="url">
+                                    <String>codemeta/dev/tools/alud_2.14.0.json</String>
+                                </field>
+                                <field name="scenarioIds">
+                                    <list>
+                                        <String>Codemeta JSON-LD to CMDI</String>
+                                    </list>
+                                </field>
+                                <field name="scenarioTypes">
+                                    <list>
+                                        <String>XSL</String>
+                                    </list>
+                                </field>
+                                <field name="scenarioStorageLocations">
+                                    <list>
+                                        <Byte>2</Byte>
+                                    </list>
+                                </field>
+                            </scenarioAssociation>
+                            <scenarioAssociation>
+                                <field name="url">
+                                    <String>codemeta/dev/tools/alpinograph_1.0.5.json</String>
+                                </field>
+                                <field name="scenarioIds">
+                                    <list>
+                                        <String>Codemeta JSON-LD to CMDI</String>
+                                    </list>
+                                </field>
+                                <field name="scenarioTypes">
+                                    <list>
+                                        <String>XSL</String>
+                                    </list>
+                                </field>
+                                <field name="scenarioStorageLocations">
+                                    <list>
+                                        <Byte>2</Byte>
+                                    </list>
+                                </field>
+                            </scenarioAssociation>
+                            <scenarioAssociation>
+                                <field name="url">
+                                    <String>codemeta/dev/tools/alpino_0.0.0.json</String>
+                                </field>
+                                <field name="scenarioIds">
+                                    <list>
+                                        <String>Codemeta JSON-LD to CMDI</String>
+                                    </list>
+                                </field>
+                                <field name="scenarioTypes">
+                                    <list>
+                                        <String>XSL</String>
+                                    </list>
+                                </field>
+                                <field name="scenarioStorageLocations">
+                                    <list>
+                                        <Byte>2</Byte>
+                                    </list>
+                                </field>
+                            </scenarioAssociation>
+                            <scenarioAssociation>
+                                <field name="url">
                                     <String>codemeta/dev/tools/alpino-service_2.4.1.json</String>
+                                </field>
+                                <field name="scenarioIds">
+                                    <list>
+                                        <String>Codemeta JSON-LD to CMDI</String>
+                                    </list>
+                                </field>
+                                <field name="scenarioTypes">
+                                    <list>
+                                        <String>XSL</String>
+                                    </list>
+                                </field>
+                                <field name="scenarioStorageLocations">
+                                    <list>
+                                        <Byte>2</Byte>
+                                    </list>
+                                </field>
+                            </scenarioAssociation>
+                            <scenarioAssociation>
+                                <field name="url">
+                                    <String>codemeta/dev/tools/7.json</String>
                                 </field>
                                 <field name="scenarioIds">
                                     <list>
@@ -71,86 +491,6 @@
                             <scenarioAssociation>
                                 <field name="url">
                                     <String>codemeta/dev/tools/tscan_0.10.0.json</String>
-                                </field>
-                                <field name="scenarioIds">
-                                    <list>
-                                        <String>Codemeta JSON-LD to CMDI</String>
-                                    </list>
-                                </field>
-                                <field name="scenarioTypes">
-                                    <list>
-                                        <String>XSL</String>
-                                    </list>
-                                </field>
-                                <field name="scenarioStorageLocations">
-                                    <list>
-                                        <Byte>2</Byte>
-                                    </list>
-                                </field>
-                            </scenarioAssociation>
-                            <scenarioAssociation>
-                                <field name="url">
-                                    <String>codemeta/dev/tools/asr_nl_0.6.2.json</String>
-                                </field>
-                                <field name="scenarioIds">
-                                    <list>
-                                        <String>Codemeta JSON-LD to CMDI</String>
-                                    </list>
-                                </field>
-                                <field name="scenarioTypes">
-                                    <list>
-                                        <String>XSL</String>
-                                    </list>
-                                </field>
-                                <field name="scenarioStorageLocations">
-                                    <list>
-                                        <Byte>2</Byte>
-                                    </list>
-                                </field>
-                            </scenarioAssociation>
-                            <scenarioAssociation>
-                                <field name="url">
-                                    <String>codemeta/dev/tools/asrservice_0.3.json</String>
-                                </field>
-                                <field name="scenarioIds">
-                                    <list>
-                                        <String>Codemeta JSON-LD to CMDI</String>
-                                    </list>
-                                </field>
-                                <field name="scenarioTypes">
-                                    <list>
-                                        <String>XSL</String>
-                                    </list>
-                                </field>
-                                <field name="scenarioStorageLocations">
-                                    <list>
-                                        <Byte>2</Byte>
-                                    </list>
-                                </field>
-                            </scenarioAssociation>
-                            <scenarioAssociation>
-                                <field name="url">
-                                    <String>codemeta/dev/tools/7.json</String>
-                                </field>
-                                <field name="scenarioIds">
-                                    <list>
-                                        <String>Codemeta JSON-LD to CMDI</String>
-                                    </list>
-                                </field>
-                                <field name="scenarioTypes">
-                                    <list>
-                                        <String>XSL</String>
-                                    </list>
-                                </field>
-                                <field name="scenarioStorageLocations">
-                                    <list>
-                                        <Byte>2</Byte>
-                                    </list>
-                                </field>
-                            </scenarioAssociation>
-                            <scenarioAssociation>
-                                <field name="url">
-                                    <String>codemeta/dev/tools/alpino_0.0.0.json</String>
                                 </field>
                                 <field name="scenarioIds">
                                     <list>
@@ -2230,251 +2570,11 @@
                             </scenarioAssociation>
                             <scenarioAssociation>
                                 <field name="url">
-                                    <String>codemeta/dev/tools/choicellm_snapshot.json</String>
-                                </field>
-                                <field name="scenarioIds">
-                                    <list>
-                                        <String>Codemeta JSON-LD to CMDI</String>
-                                    </list>
-                                </field>
-                                <field name="scenarioTypes">
-                                    <list>
-                                        <String>XSL</String>
-                                    </list>
-                                </field>
-                                <field name="scenarioStorageLocations">
-                                    <list>
-                                        <Byte>2</Byte>
-                                    </list>
-                                </field>
-                            </scenarioAssociation>
-                            <scenarioAssociation>
-                                <field name="url">
-                                    <String>codemeta/dev/tools/chamd_0.5.12.json</String>
-                                </field>
-                                <field name="scenarioIds">
-                                    <list>
-                                        <String>Codemeta JSON-LD to CMDI</String>
-                                    </list>
-                                </field>
-                                <field name="scenarioTypes">
-                                    <list>
-                                        <String>XSL</String>
-                                    </list>
-                                </field>
-                                <field name="scenarioStorageLocations">
-                                    <list>
-                                        <Byte>2</Byte>
-                                    </list>
-                                </field>
-                            </scenarioAssociation>
-                            <scenarioAssociation>
-                                <field name="url">
-                                    <String>codemeta/dev/tools/cesar_unknown.json</String>
-                                </field>
-                                <field name="scenarioIds">
-                                    <list>
-                                        <String>Codemeta JSON-LD to CMDI</String>
-                                    </list>
-                                </field>
-                                <field name="scenarioTypes">
-                                    <list>
-                                        <String>XSL</String>
-                                    </list>
-                                </field>
-                                <field name="scenarioStorageLocations">
-                                    <list>
-                                        <Byte>2</Byte>
-                                    </list>
-                                </field>
-                            </scenarioAssociation>
-                            <scenarioAssociation>
-                                <field name="url">
-                                    <String>codemeta/dev/tools/burgerlinker_0.0.1-SNAPSHOT.json</String>
-                                </field>
-                                <field name="scenarioIds">
-                                    <list>
-                                        <String>Codemeta JSON-LD to CMDI</String>
-                                    </list>
-                                </field>
-                                <field name="scenarioTypes">
-                                    <list>
-                                        <String>XSL</String>
-                                    </list>
-                                </field>
-                                <field name="scenarioStorageLocations">
-                                    <list>
-                                        <Byte>2</Byte>
-                                    </list>
-                                </field>
-                            </scenarioAssociation>
-                            <scenarioAssociation>
-                                <field name="url">
-                                    <String>codemeta/dev/tools/broccoli_0.48.0.json</String>
-                                </field>
-                                <field name="scenarioIds">
-                                    <list>
-                                        <String>Codemeta JSON-LD to CMDI</String>
-                                    </list>
-                                </field>
-                                <field name="scenarioTypes">
-                                    <list>
-                                        <String>XSL</String>
-                                    </list>
-                                </field>
-                                <field name="scenarioStorageLocations">
-                                    <list>
-                                        <Byte>2</Byte>
-                                    </list>
-                                </field>
-                            </scenarioAssociation>
-                            <scenarioAssociation>
-                                <field name="url">
-                                    <String>codemeta/dev/tools/blacklab_4.0.0.json</String>
-                                </field>
-                                <field name="scenarioIds">
-                                    <list>
-                                        <String>Codemeta JSON-LD to CMDI</String>
-                                    </list>
-                                </field>
-                                <field name="scenarioTypes">
-                                    <list>
-                                        <String>XSL</String>
-                                    </list>
-                                </field>
-                                <field name="scenarioStorageLocations">
-                                    <list>
-                                        <Byte>2</Byte>
-                                    </list>
-                                </field>
-                            </scenarioAssociation>
-                            <scenarioAssociation>
-                                <field name="url">
-                                    <String>codemeta/dev/tools/annorepo_0.8.0.json</String>
-                                </field>
-                                <field name="scenarioIds">
-                                    <list>
-                                        <String>Codemeta JSON-LD to CMDI</String>
-                                    </list>
-                                </field>
-                                <field name="scenarioTypes">
-                                    <list>
-                                        <String>XSL</String>
-                                    </list>
-                                </field>
-                                <field name="scenarioStorageLocations">
-                                    <list>
-                                        <Byte>2</Byte>
-                                    </list>
-                                </field>
-                            </scenarioAssociation>
-                            <scenarioAssociation>
-                                <field name="url">
-                                    <String>codemeta/dev/tools/analiticcl_0.4.8.json</String>
-                                </field>
-                                <field name="scenarioIds">
-                                    <list>
-                                        <String>Codemeta JSON-LD to CMDI</String>
-                                    </list>
-                                </field>
-                                <field name="scenarioTypes">
-                                    <list>
-                                        <String>XSL</String>
-                                    </list>
-                                </field>
-                                <field name="scenarioStorageLocations">
-                                    <list>
-                                        <Byte>2</Byte>
-                                    </list>
-                                </field>
-                            </scenarioAssociation>
-                            <scenarioAssociation>
-                                <field name="url">
-                                    <String>codemeta/dev/tools/alud_2.14.0.json</String>
-                                </field>
-                                <field name="scenarioIds">
-                                    <list>
-                                        <String>Codemeta JSON-LD to CMDI</String>
-                                    </list>
-                                </field>
-                                <field name="scenarioTypes">
-                                    <list>
-                                        <String>XSL</String>
-                                    </list>
-                                </field>
-                                <field name="scenarioStorageLocations">
-                                    <list>
-                                        <Byte>2</Byte>
-                                    </list>
-                                </field>
-                            </scenarioAssociation>
-                            <scenarioAssociation>
-                                <field name="url">
-                                    <String>codemeta/dev/tools/alpinograph_1.0.5.json</String>
-                                </field>
-                                <field name="scenarioIds">
-                                    <list>
-                                        <String>Codemeta JSON-LD to CMDI</String>
-                                    </list>
-                                </field>
-                                <field name="scenarioTypes">
-                                    <list>
-                                        <String>XSL</String>
-                                    </list>
-                                </field>
-                                <field name="scenarioStorageLocations">
-                                    <list>
-                                        <Byte>2</Byte>
-                                    </list>
-                                </field>
-                            </scenarioAssociation>
-                            <scenarioAssociation>
-                                <field name="url">
-                                    <String>codemeta/dev/tools/annorepo-client_0.2.3.json</String>
-                                </field>
-                                <field name="scenarioIds">
-                                    <list>
-                                        <String>Codemeta JSON-LD to CMDI</String>
-                                    </list>
-                                </field>
-                                <field name="scenarioTypes">
-                                    <list>
-                                        <String>XSL</String>
-                                    </list>
-                                </field>
-                                <field name="scenarioStorageLocations">
-                                    <list>
-                                        <Byte>2</Byte>
-                                    </list>
-                                </field>
-                            </scenarioAssociation>
-                            <scenarioAssociation>
-                                <field name="url">
                                     <String>switchboard/dev/output/</String>
                                 </field>
                                 <field name="scenarioIds">
                                     <list>
                                         <String>Switchboard JSON to CMDI</String>
-                                    </list>
-                                </field>
-                                <field name="scenarioTypes">
-                                    <list>
-                                        <String>XSL</String>
-                                    </list>
-                                </field>
-                                <field name="scenarioStorageLocations">
-                                    <list>
-                                        <Byte>2</Byte>
-                                    </list>
-                                </field>
-                            </scenarioAssociation>
-                            <scenarioAssociation>
-                                <field name="url">
-                                    <String>codemeta/dev/tools/auchann_0.2.0.json</String>
-                                </field>
-                                <field name="scenarioIds">
-                                    <list>
-                                        <String>Codemeta JSON-LD to CMDI</String>
                                     </list>
                                 </field>
                                 <field name="scenarioTypes">
@@ -3871,106 +3971,6 @@
                             <scenarioAssociation>
                                 <field name="url">
                                     <String>switchboard/dev/tools/PICCL%20(PDF%20document%20with%20embedded%20text%20(no%20OCR)).json</String>
-                                </field>
-                                <field name="scenarioIds">
-                                    <list>
-                                        <String>Switchboard JSON to CMDI</String>
-                                    </list>
-                                </field>
-                                <field name="scenarioTypes">
-                                    <list>
-                                        <String>XSL</String>
-                                    </list>
-                                </field>
-                                <field name="scenarioStorageLocations">
-                                    <list>
-                                        <Byte>2</Byte>
-                                    </list>
-                                </field>
-                            </scenarioAssociation>
-                            <scenarioAssociation>
-                                <field name="url">
-                                    <String>switchboard/dev/tools/Paraphrase.json</String>
-                                </field>
-                                <field name="scenarioIds">
-                                    <list>
-                                        <String>Switchboard JSON to CMDI</String>
-                                    </list>
-                                </field>
-                                <field name="scenarioTypes">
-                                    <list>
-                                        <String>XSL</String>
-                                    </list>
-                                </field>
-                                <field name="scenarioStorageLocations">
-                                    <list>
-                                        <Byte>2</Byte>
-                                    </list>
-                                </field>
-                            </scenarioAssociation>
-                            <scenarioAssociation>
-                                <field name="url">
-                                    <String>switchboard/dev/tools/Lem.json</String>
-                                </field>
-                                <field name="scenarioIds">
-                                    <list>
-                                        <String>Switchboard JSON to CMDI</String>
-                                    </list>
-                                </field>
-                                <field name="scenarioTypes">
-                                    <list>
-                                        <String>XSL</String>
-                                    </list>
-                                </field>
-                                <field name="scenarioStorageLocations">
-                                    <list>
-                                        <Byte>2</Byte>
-                                    </list>
-                                </field>
-                            </scenarioAssociation>
-                            <scenarioAssociation>
-                                <field name="url">
-                                    <String>switchboard/dev/tools/English%20Automatic%20Speech%20Recognition%20System%20(Ogg%20file).json</String>
-                                </field>
-                                <field name="scenarioIds">
-                                    <list>
-                                        <String>Switchboard JSON to CMDI</String>
-                                    </list>
-                                </field>
-                                <field name="scenarioTypes">
-                                    <list>
-                                        <String>XSL</String>
-                                    </list>
-                                </field>
-                                <field name="scenarioStorageLocations">
-                                    <list>
-                                        <Byte>2</Byte>
-                                    </list>
-                                </field>
-                            </scenarioAssociation>
-                            <scenarioAssociation>
-                                <field name="url">
-                                    <String>switchboard/dev/tools/spaCy%20monolingual%20NER%20and%20Geoparsing.json</String>
-                                </field>
-                                <field name="scenarioIds">
-                                    <list>
-                                        <String>Switchboard JSON to CMDI</String>
-                                    </list>
-                                </field>
-                                <field name="scenarioTypes">
-                                    <list>
-                                        <String>XSL</String>
-                                    </list>
-                                </field>
-                                <field name="scenarioStorageLocations">
-                                    <list>
-                                        <Byte>2</Byte>
-                                    </list>
-                                </field>
-                            </scenarioAssociation>
-                            <scenarioAssociation>
-                                <field name="url">
-                                    <String>switchboard/dev/tools/English%20Automatic%20Speech%20Recognition%20System%20(Wav%20file).json</String>
                                 </field>
                                 <field name="scenarioIds">
                                     <list>

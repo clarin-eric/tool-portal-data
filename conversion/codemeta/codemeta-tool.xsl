@@ -10,7 +10,6 @@
     <!--
         TODO:
             - platform (operatingSystem)
-            - version
             - organisation (publisher?)
     -->
 
@@ -136,6 +135,8 @@
                     <xsl:apply-templates select="map[@key = 'sourceOrganization']"/>
 
                     <xsl:apply-templates mode="provenanceInfo" select="."/>
+                    
+                    <xsl:apply-templates select="string[@key = 'version']" />
 
                     <MetadataInfo>
                         <ProvenanceInfo>
@@ -480,6 +481,12 @@
                 </xsl:apply-templates>
             </ActivityInfo>
         </Creation>
+    </xsl:template>
+    
+    <xsl:template match="string[@key = 'version']">
+        <VersionInfo>
+            <versionIdentifier><xsl:value-of select="."/></versionIdentifier>
+        </VersionInfo>
     </xsl:template>
 
     <xsl:template match="array">
