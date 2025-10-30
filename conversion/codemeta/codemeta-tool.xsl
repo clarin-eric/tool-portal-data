@@ -126,7 +126,7 @@
                     </xsl:for-each>
                 </Description>
                 
-                <xsl:apply-templates select="array[@key = 'keywords']"/>
+                <xsl:apply-templates mode="descriptivePropertiesInfo" select="." />
                 
                 <!-- Authors -->
                 <xsl:apply-templates select="map[@key = 'author'] | array[@key = 'author']/map"/>
@@ -165,16 +165,6 @@
                 </MetadataInfo>
             </GenericToolService>
         </cmd:Components>
-    </xsl:template>
-
-    <xsl:template match="array[@key = 'keywords']">
-        <DescriptivePropertiesInfo>
-            <xsl:for-each select="./string">
-                <keyword>
-                    <xsl:value-of select="."/>
-                </keyword>
-            </xsl:for-each>
-        </DescriptivePropertiesInfo>
     </xsl:template>
 
     <xsl:template match="map[@key = 'author'] | array[@key = 'author']/map">
@@ -248,7 +238,14 @@
                 <xsl:value-of select="concat(concat($familyName, ', '), $givenName)"/>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:value-of select="$familyName | $givenName"/>
+                <xsl:choose>
+                    <xsl:when test="normalize-space($familyName) != ''">
+                        <xsl:value-of select="$familyName"/>                        
+                    </xsl:when>
+                    <xsl:when test="normalize-space($givenName) != ''">
+                        <xsl:value-of select="$givenName"/>                        
+                    </xsl:when>
+                </xsl:choose>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:function>
@@ -377,6 +374,44 @@
                 </AgentInfo>
             </xsl:if>
         </xsl:element>
+    </xsl:template>
+    
+    <xsl:template mode="descriptivePropertiesInfo" match="map">
+        <DescriptivePropertiesInfo>
+            <xsl:for-each select="array[@key = 'keywords']/string">
+                <keyword>
+                    <xsl:value-of select="."/>
+                </keyword>
+            </xsl:for-each>
+            
+            <xsl:for-each select="array[@key = 'applicationCategory']/string | string[@key = 'applicationCategory']">
+                <FieldOfStudy>
+                    <label><xsl:value-of select="."/></label>
+                </FieldOfStudy>
+            </xsl:for-each>
+            
+            <xsl:for-each select="array[@key = 'applicationCategory']/map | map[@key = 'applicationCategory']">
+                <FieldOfStudy>
+                    <xsl:for-each select="string[@key = '@id']">
+                        <identifier><xsl:value-of select="."/></identifier>
+                    </xsl:for-each>
+                    <xsl:if test="count(array[@key = 'skos:prefLabel']/map | map[@key = 'skos:prefLabel']) = 0">
+                        <label><xsl:value-of select="string[@key = '@id'][1]"/></label>
+                    </xsl:if>
+                    <xsl:for-each select="array[@key = 'skos:prefLabel']/map | map[@key = 'skos:prefLabel']">
+                        <xsl:variable name="language" select="normalize-space(string[@key = '@language'])"/>
+                        <xsl:if test="$language = '' or $language='en'">
+                            <label>
+                                <xsl:if test="normalize-space($language) != ''">
+                                    <xsl:attribute name="xml:lang" select="$language" />
+                                </xsl:if>
+                                <xsl:value-of select="string[@key = '@value']"/>
+                            </label>    
+                        </xsl:if>
+                    </xsl:for-each>
+                </FieldOfStudy>
+            </xsl:for-each>
+        </DescriptivePropertiesInfo>
     </xsl:template>
     
     <xsl:template mode="toolInfo" match="map">
